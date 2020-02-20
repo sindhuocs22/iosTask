@@ -6,6 +6,10 @@ target 'ios Task' do
   use_frameworks!
 
   # Pods for ios Task
+  pod 'SVProgressHUD'
+  pod 'Toast-Swift', '~> 5.0.1'
+
+
 
 
 

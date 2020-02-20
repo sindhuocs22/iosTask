@@ -20,12 +20,9 @@ class countryListVM : NSObject {
   var arrayCountryData : [Rows]?
   var delegate: countryListViewModelDelegate?
   
-  func sendRequestToGetCountryData() -> Void {
+  func sendRequestToGetCountryData(parentController:UIViewController) -> Void {
     
-    if Reachability.isConnectedToNetwork() {
-      
-      URLHandler.sharedInstance.sendRequestToGetAPICall { (data) in
-        
+      URLHandler.sharedInstance.sendRequestToGetAPICall(parentController: parentController) { (data) in
           if let responseData = data {
             let decoder = JSONDecoder()
             let decodedData = try? decoder.decode(countryModel.self, from: responseData)
@@ -40,14 +37,12 @@ class countryListVM : NSObject {
             
           }
           else{
-            Themes.sharedInstance.showResponseErrorAlert()
-
+            DispatchQueue.main.async {
+              Themes.sharedInstance.showResponseErrorAlert(controller: parentController)
+            }
           }
       }
-    }
-    else{
-      
-    }
+    
 }
   
 }

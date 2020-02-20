@@ -1,3 +1,20 @@
-PODFILE CHECKSUM: 31dc531ae9add91da4479b5f2e885767287a6873
+PODS:
+  - SVProgressHUD (2.2.5)
+  - Toast-Swift (5.0.1)
+
+DEPENDENCIES:
+  - SVProgressHUD
+  - Toast-Swift (~> 5.0.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - SVProgressHUD
+    - Toast-Swift
+
+SPEC CHECKSUMS:
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+
+PODFILE CHECKSUM: 6383dfe7666a90fbf0539448346ceb8ad2d00058
 
 COCOAPODS: 1.5.3

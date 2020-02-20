@@ -6,30 +6,50 @@
 //  Copyright © 2020 INFOSYS. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 class URLHandler: NSObject {
   
   static let sharedInstance = URLHandler()
   
-  func sendRequestToGetAPICall(_ completion: @escaping (_ data:Data?) -> ()) {
+  func sendRequestToGetAPICall(parentController:UIViewController,_ completion: @escaping (_ data:Data?) -> ()) {
     
-    guard let url = URL(string: constants.Baseurl) else { return }
-    
-    URLSession.shared.dataTask(with: url) { (data, res, err) in
+    if Reachability.isConnectedToNetwork() {
       
-      if let d = data {
+      Themes.sharedInstance.showProgresss()
+      
+      guard let url = URL(string: constants.Baseurl) else { return }
+      
+      URLSession.shared.dataTask(with: url) { (data, res, err) in
         
-        if let value = String(data: d, encoding: String.Encoding.ascii) {
+        Themes.sharedInstance.dismissProgress()
+        
+        if let d = data {
           
-          if let jsonData = value.data(using: String.Encoding.utf8) {
+          if let value = String(data: d, encoding: String.Encoding.ascii) {
             
-            completion(jsonData)
+            if let jsonData = value.data(using: String.Encoding.utf8) {
+              
+              completion(jsonData)
+            }
+          }
+          
+        }
+        else {
+          
+          DispatchQueue.main.async {
+            Themes.sharedInstance.showResponseErrorAlert(controller: parentController)
           }
         }
-        
-      }
-      }.resume()
+        }.resume()
+    }
+    else {
+      
+      Themes.sharedInstance.showNetworkErrorAlert(controller: parentController)
+
+    }
+    
+    
   }
 }

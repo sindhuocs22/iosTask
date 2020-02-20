@@ -27,7 +27,7 @@ class CountryList: UIViewController,countryListViewModelDelegate {
     tableCountry.register(CountryListCell.self, forCellReuseIdentifier: "Cell")
     refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
     tableCountry.addSubview(refreshControl)
-    countryListViewModel.sendRequestToGetCountryData()
+    countryListViewModel.sendRequestToGetCountryData(parentController: self)
 
   }
   func createSubViews() -> Void {
@@ -52,15 +52,12 @@ class CountryList: UIViewController,countryListViewModelDelegate {
   func reloadData() {
     self.tableCountry.reloadData()
     self.refreshControl.endRefreshing()
-
   }
   func updateNavigationTitle(title: String) {
-    
     self.navigationItem.title = title
   }
   //MARK:Actions
   @objc func refresh(sender:AnyObject) {
-    countryListViewModel.sendRequestToGetCountryData()
-
+    countryListViewModel.sendRequestToGetCountryData(parentController: self)
   }
 }

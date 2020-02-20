@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F441F3023FE4BBF00AD1F31 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F441F2F23FE4BBF00AD1F31 /* Extensions.swift */; };
 		2F4A464E23FCF50600847090 /* CountryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4A464D23FCF50600847090 /* CountryListModel.swift */; };
 		2F4A465023FCF51A00847090 /* CountryListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4A464F23FCF51A00847090 /* CountryListVM.swift */; };
 		2F4A465323FCF6D200847090 /* URLHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4A465223FCF6D200847090 /* URLHandler.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		24BE47EBD0AB316BB054872C /* Pods_ios_Task.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_Task.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F441F2F23FE4BBF00AD1F31 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2F4A464D23FCF50600847090 /* CountryListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListModel.swift; sourceTree = "<group>"; };
 		2F4A464F23FCF51A00847090 /* CountryListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListVM.swift; sourceTree = "<group>"; };
 		2F4A465223FCF6D200847090 /* URLHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHandler.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				2F4A465423FCF71600847090 /* Constant.swift */,
 				2F4A465623FD0D6E00847090 /* Themes.swift */,
 				2F4A465823FD101C00847090 /* Reachability.swift */,
+				2F441F2F23FE4BBF00AD1F31 /* Extensions.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				2F4A465023FCF51A00847090 /* CountryListVM.swift in Sources */,
 				2F4A464E23FCF50600847090 /* CountryListModel.swift in Sources */,
 				2F4A465C23FD281400847090 /* CountryList.swift in Sources */,
+				2F441F3023FE4BBF00AD1F31 /* Extensions.swift in Sources */,
 				2F4A465323FCF6D200847090 /* URLHandler.swift in Sources */,
 				2F4A465923FD101C00847090 /* Reachability.swift in Sources */,
 				2F4A465523FCF71600847090 /* Constant.swift in Sources */,

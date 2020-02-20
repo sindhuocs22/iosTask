@@ -8,6 +8,7 @@
 
 import Foundation
 class Themes: NSObject {
+  
   static let sharedInstance = Themes()
   
   func showNetworkErrorAlert() -> Void {

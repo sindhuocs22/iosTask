@@ -15,7 +15,7 @@ class CountryListCell: UITableViewCell {
   var labelTitle = UILabel()
   var labelDescription = UILabel()
   var viewSeperator = UIView()
-
+  private var task: URLSessionDataTask?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,17 +40,14 @@ class CountryListCell: UITableViewCell {
     self.addSubview(viewBg)
     
     imageIcon.translatesAutoresizingMaskIntoConstraints = false
-    imageIcon.backgroundColor = .lightGray
     viewBg.addSubview(imageIcon)
     
     labelTitle.translatesAutoresizingMaskIntoConstraints = false
-    labelTitle.text = "title"
     labelTitle.font = UIFont.boldSystemFont(ofSize: 15)
     labelTitle.numberOfLines = 0
     viewBg.addSubview(labelTitle)
     
     labelDescription.translatesAutoresizingMaskIntoConstraints = false
-    labelDescription.text = "description"
     labelDescription.font = UIFont.systemFont(ofSize: 13)
     labelDescription.numberOfLines = 0
     viewBg.addSubview(labelDescription)
@@ -89,4 +86,18 @@ class CountryListCell: UITableViewCell {
     
   }
 
+  // Called in cellForRowAt / cellForItemAt
+  func configureWith(urlString: String) {
+    if task == nil {
+      // Ignore calls when reloading
+      task = imageIcon.downloadImage(from: urlString)
+    }
+  }
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    
+    task?.cancel()
+    task = nil
+    imageIcon.image = nil
+  }
 }

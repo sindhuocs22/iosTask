@@ -12,6 +12,8 @@ class CountryList: UIViewController,countryListViewModelDelegate {
   
   var tableCountry = UITableView()
   var countryListViewModel = countryListVM()
+  var refreshControl = UIRefreshControl()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +25,14 @@ class CountryList: UIViewController,countryListViewModelDelegate {
     self.createSubViews()
     self.setupConstraints()
     tableCountry.register(CountryListCell.self, forCellReuseIdentifier: "Cell")
+    refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+    tableCountry.addSubview(refreshControl)
     countryListViewModel.sendRequestToGetCountryData()
 
   }
   func createSubViews() -> Void {
     
-    self.navigationItem.title = "Canada"
+    self.navigationItem.title = "About"
     tableCountry.translatesAutoresizingMaskIntoConstraints = false
     tableCountry.estimatedRowHeight = 80
     tableCountry.separatorStyle = .none
@@ -43,12 +47,20 @@ class CountryList: UIViewController,countryListViewModelDelegate {
     tableCountry.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
     tableCountry.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
     
-    
-    
   }
   //MARK:Custom protocols
   func reloadData() {
     self.tableCountry.reloadData()
-  }
+    self.refreshControl.endRefreshing()
 
+  }
+  func updateNavigationTitle(title: String) {
+    
+    self.navigationItem.title = title
+  }
+  //MARK:Actions
+  @objc func refresh(sender:AnyObject) {
+    countryListViewModel.sendRequestToGetCountryData()
+
+  }
 }

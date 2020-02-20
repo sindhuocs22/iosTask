@@ -11,11 +11,13 @@ import UIKit
 //MARK: protocol created
 protocol countryListViewModelDelegate : class {
   func reloadData()
+  func updateNavigationTitle(title:String)
+  
 }
 
 class countryListVM : NSObject {
   
-  var arrayCountryData = [Rows]()
+  var arrayCountryData : [Rows]?
   var delegate: countryListViewModelDelegate?
   
   func sendRequestToGetCountryData() -> Void {
@@ -25,15 +27,15 @@ class countryListVM : NSObject {
       URLHandler.sharedInstance.sendRequestToGetAPICall { (data) in
         
           if let responseData = data {
-            
             let decoder = JSONDecoder()
-           // decoder.keyDecodingStrategy = .convertFromSnakeCase
             let decodedData = try? decoder.decode(countryModel.self, from: responseData)
-            print("title-->\(decodedData?.title ?? "test")")
             if let array = decodedData?.rows {
               self.arrayCountryData = array
-              print("array--->\(self.arrayCountryData)")
-              self.delegate?.reloadData()
+              print("array-->\(array)")
+              DispatchQueue.main.async {
+                self.delegate?.updateNavigationTitle(title: decodedData?.title ?? "")
+                self.delegate?.reloadData()
+              }
             }
             
           }
@@ -53,7 +55,7 @@ class countryListVM : NSObject {
 extension countryListVM : UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    return arrayCountryData.count
+    return arrayCountryData?.count ?? 0
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,6 +64,21 @@ extension countryListVM : UITableViewDataSource {
     cell?.selectionStyle = .none
     if cell == nil {
       cell = CountryListCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "Cell")
+    }
+    if let object = arrayCountryData?[indexPath.row] {
+      let title = "\(object.title ?? "")"
+      let description = "\(object.description ?? "")"
+      let imageUrl = "\(object.imageHref ?? "")"
+      cell?.labelTitle.text = title
+      cell?.labelDescription.text = description
+      if imageUrl != "" {
+        cell?.configureWith(urlString: imageUrl)
+      }
+      else {
+        cell?.imageIcon.image = UIImage.init(named: "placeholder")
+
+      }
+      
     }
     
     return cell!

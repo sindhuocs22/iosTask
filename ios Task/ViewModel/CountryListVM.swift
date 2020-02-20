@@ -10,6 +10,7 @@ import UIKit
 
 //MARK: protocol created
 protocol countryListViewModelDelegate : class {
+  
   func reloadData()
   func updateNavigationTitle(title:String)
   
@@ -22,34 +23,44 @@ class countryListVM : NSObject {
   
   func sendRequestToGetCountryData(parentController:UIViewController) -> Void {
     
-      URLHandler.sharedInstance.sendRequestToGetAPICall(parentController: parentController) { (data) in
-          if let responseData = data {
-            let decoder = JSONDecoder()
-            let decodedData = try? decoder.decode(countryModel.self, from: responseData)
-            if let array = decodedData?.rows {
-              self.arrayCountryData = array
-              print("array-->\(array)")
-              DispatchQueue.main.async {
-                self.delegate?.updateNavigationTitle(title: decodedData?.title ?? "")
-                self.delegate?.reloadData()
-              }
-            }
-            
-          }
-          else{
-            DispatchQueue.main.async {
-              Themes.sharedInstance.showResponseErrorAlert(controller: parentController)
-            }
-          }
-      }
+    //API Call
     
-}
+    URLHandler.sharedInstance.sendRequestToGetAPICall(parentController: parentController) { (data) in
+      if let responseData = data {
+        let decoder = JSONDecoder()
+        let decodedData = try? decoder.decode(countryModel.self, from: responseData)
+        if let array = decodedData?.rows {
+          self.arrayCountryData = array
+          print("array-->\(array)")
+          DispatchQueue.main.async {
+            self.delegate?.updateNavigationTitle(title: decodedData?.title ?? "")
+            self.delegate?.reloadData()
+          }
+        }
+        
+      }
+      else{
+        DispatchQueue.main.async {
+          Themes.sharedInstance.showResponseErrorAlert(controller: parentController)
+        }
+      }
+    }
+    
+  }
   
 }
 //MARK:Tableview DataSource
 extension countryListVM : UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
+    if arrayCountryData?.count ?? 0 > 0 {
+      
+      tableView.setEmptyMessage(NSLocalizedString("no_data", comment: ""))
+    }
+    else {
+      
+      tableView.restore()
+    }
     return arrayCountryData?.count ?? 0
   }
   
@@ -71,7 +82,7 @@ extension countryListVM : UITableViewDataSource {
       }
       else {
         cell?.imageIcon.image = UIImage.init(named: "placeholder")
-
+        
       }
       
     }

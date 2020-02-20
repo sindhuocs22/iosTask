@@ -10,42 +10,45 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-      self.setupInitialViewController()
-        return true
-    }
+  
+  var window: UIWindow?
+  
+  
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    self.setupInitialViewController()
+    return true
+  }
   //MARK: - initial ViewController
   func setupInitialViewController() -> Void {
+    
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.makeKeyAndVisible()
-    window?.rootViewController = UINavigationController(rootViewController: CountryList())
+    let navigationController = UINavigationController(rootViewController: CountryList())
+    navigationController.navigationBar.barTintColor = UIColor.white
+    window?.rootViewController = navigationController
     
   }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-      
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-      
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-      
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-      
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-      
-    }
-
-
+  
+  func applicationWillResignActive(_ application: UIApplication) {
+    
+  }
+  
+  func applicationDidEnterBackground(_ application: UIApplication) {
+    
+  }
+  
+  func applicationWillEnterForeground(_ application: UIApplication) {
+    
+  }
+  
+  func applicationDidBecomeActive(_ application: UIApplication) {
+    
+  }
+  
+  func applicationWillTerminate(_ application: UIApplication) {
+    
+  }
+  
+  
 }
 

@@ -34,6 +34,7 @@ class CountryListCell: UITableViewCell {
     self.setupConstraints()
 
   }
+  //MARK: - Design Setup
   func createSubViews() -> Void {
     
     viewBg.translatesAutoresizingMaskIntoConstraints = false

@@ -16,11 +16,13 @@ class Themes: NSObject {
   
   func showNetworkErrorAlert(controller:UIViewController) -> Void {
     
-    controller.view.makeToast("No Network Available")
+    //If network is not connected
+    controller.view.makeToast(NSLocalizedString("no_network", comment: ""))
   }
   func showResponseErrorAlert(controller:UIViewController) -> Void {
     
-    controller.view.makeToast("Error in Network connection")
+    //connected by internet but error in Response
+    controller.view.makeToast(NSLocalizedString("response_error", comment: ""))
 
   }
   func showProgresss() -> Void {

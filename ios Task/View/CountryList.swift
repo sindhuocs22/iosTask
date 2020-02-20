@@ -13,12 +13,15 @@ class CountryList: UIViewController,countryListViewModelDelegate {
   var tableCountry = UITableView()
   var countryListViewModel = countryListVM()
   var refreshControl = UIRefreshControl()
-
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupDesign()
-    }
+  
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.setupDesign()
+  }
+  
+  //MARK: Design Setup
+  
   func setupDesign() -> Void {
     
     countryListViewModel.delegate = self
@@ -27,12 +30,13 @@ class CountryList: UIViewController,countryListViewModelDelegate {
     tableCountry.register(CountryListCell.self, forCellReuseIdentifier: "Cell")
     refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
     tableCountry.addSubview(refreshControl)
+    //API calls in ViewModel Class
     countryListViewModel.sendRequestToGetCountryData(parentController: self)
-
+    
   }
   func createSubViews() -> Void {
     
-    self.navigationItem.title = "About"
+    self.navigationItem.title = NSLocalizedString("navigation_title", comment: "")
     tableCountry.translatesAutoresizingMaskIntoConstraints = false
     tableCountry.estimatedRowHeight = 80
     tableCountry.separatorStyle = .none
